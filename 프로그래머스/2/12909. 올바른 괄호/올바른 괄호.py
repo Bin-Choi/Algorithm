@@ -1,20 +1,15 @@
 def solution(s):
     stk = []
-    for char in s:
-        if not stk:
-            if char == ')':
-                return False
-            stk.append(char)
-            
-        elif char == '(':
-            stk.append(char)
+    for c in s:
+        if c == '(':
+            stk.append(c)
         
-        elif char == ')':
-            if stk[-1] == '(':
+        if c == ')':
+            
+            if stk:
                 stk.pop()
+                
             else:
-                stk.append(char)
-    
-    if stk:
-        return False
-    return True
+                return False
+                
+    return len(stk) == 0
