@@ -17,12 +17,6 @@ public class Main {
 
             StringTokenizer st = new StringTokenizer(line);
 
-            // ✅ 두 개의 문자열이 존재하지 않으면 Impossible 출력
-            if (st.countTokens() != 2) {
-                System.out.println("Impossible");
-                continue;
-            }
-
             String a = st.nextToken();
             String b = st.nextToken();
 
