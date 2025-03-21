@@ -4,8 +4,10 @@ import java.io.*;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        
         int N = Integer.parseInt(br.readLine());
-        Stack<Integer> stk = new Stack<Integer>();
+        Stack<Integer> stk = new Stack<>();
 
         for (int i = 0; i < N; i++) {
             StringTokenizer st = new StringTokenizer(br.readLine(), " ");
@@ -13,40 +15,28 @@ public class Main {
 
             switch (command) {
                 case "push":
-                    Integer t = Integer.parseInt(st.nextToken());
-                    stk.push(t);
+                    stk.push(Integer.parseInt(st.nextToken()));
                     break;
+
                 case "top":
-                    if (stk.empty()) {
-                        System.out.println("-1");
-                    } else {
-                        System.out.println(stk.peek());
-                    }
+                    bw.write(stk.isEmpty() ? "-1\n" : stk.peek() + "\n");
                     break;
 
                 case "size":
-                    System.out.println(stk.size());
+                    bw.write(stk.size() + "\n");
                     break;
 
                 case "empty":
-                    if (stk.empty()) {
-                        System.out.println("1");
-                    } else {
-                        System.out.println("0");
-                    }
+                    bw.write(stk.isEmpty() ? "1\n" : "0\n");
                     break;
 
                 case "pop":
-                    if (stk.empty()) {
-                        System.out.println("-1");
-                    } else {
-                        System.out.println(stk.pop());
-                    }
-                    break;
-
-                default:
+                    bw.write(stk.isEmpty() ? "-1\n" : stk.pop() + "\n");
                     break;
             }
         }
+
+        bw.flush();
+        bw.close();
     }
 }
