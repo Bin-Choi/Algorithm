@@ -2,55 +2,61 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
-        int N = Integer.parseInt(br.readLine());
-        Stack<Integer> stk = new Stack<Integer>();
-        int[] arr = new int[N];
+        int time = Integer.parseInt(br.readLine());
+        Deque<Integer> stk = new LinkedList<>();
+        int [] arr = new int[time];
 
-        for(int i = 0; i < N; i++) {
+        for(int i = 0; i < time; i++) {
             arr[i] = Integer.parseInt(br.readLine());
         }
 
         int cnt = 0;
         int num = 1;
 
-        while(cnt != N) {
+
+        while(cnt != time) {
+
             if (stk.isEmpty()) {
                 stk.add(num);
                 num++;
-            
 
-                if (num > N+1) {
+                if (num > time+1) {
                     break;
                 }
-                sb.append('+').append('\n');
+
+                sb.append("+\n");
                 continue;
             }
-
-            if (stk.peek() != arr[cnt]) {
+            
+            if (stk.peekLast() != arr[cnt]) {
                 stk.add(num);
                 num++;
 
-                if (num > N+1) {
+                if (num > time+1) {
                     break;
                 }
 
-                sb.append('+').append('\n');
+                sb.append("+\n");
+                
             }
 
             else {
-                stk.pop();
+                stk.pollLast();
+                sb.append("-\n");
                 cnt++;
-                sb.append('-').append('\n');
             }
         }
-
-        if (cnt != N) {
-            sb = new StringBuilder().append("NO").append('\n');
+            
+        
+        if (cnt != time) {
+            System.out.println("NO");
         }
-
-        System.out.println(sb);
-    }
+        else {
+            System.out.print(sb);
+        }
+   }
 }
