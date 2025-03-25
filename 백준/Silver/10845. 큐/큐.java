@@ -4,60 +4,56 @@ import java.io.*;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        
+        StringBuilder sb = new StringBuilder();
         int N = Integer.parseInt(br.readLine());
         Deque<Integer> que = new LinkedList<>();
+        
 
-        while(N-- >0) {
-            String input = br.readLine();
-            String spt[] = input.split(" ");
+        for (int i = 0; i < N; i++) {
+            String[] com = br.readLine().split(" ");
 
-            switch (spt[0]) {
+            switch (com[0]) {
                 case "push":
-                    que.offer(Integer.parseInt(spt[1]));
+                    que.addLast(Integer.parseInt(com[1]));
                     break;
-            
+                
                 case "front":
-                    if(que.isEmpty()) {
-                        bw.write(-1 + "\n");
-                    } else {
-                        bw.write(que.peek() + "\n");
+                    if (que.isEmpty()) {
+                        sb.append(-1 + "\n");
+                        break;
                     }
+                    sb.append(que.peekFirst() + "\n");
                     break;
 
                 case "back":
-                    if(que.isEmpty()) {
-                        bw.write(-1 + "\n");
-                    } else {
-                        bw.write(que.peekLast() + "\n");
+                    if (que.isEmpty()) {
+                        sb.append(-1 + "\n");
+                        break;
                     }
+                    sb.append(que.peekLast() + "\n");
                     break;
                 
                 case "size":
-                    bw.write(que.size() + "\n");
+                    sb.append(que.size() + "\n");
                     break;
-
                 case "empty":
                     if (que.isEmpty()) {
-                        bw.write(1 + "\n");
+                        sb.append(1 + "\n");
                     } else {
-                        bw.write(0 + "\n");
+                        sb.append(0 + "\n");
                     }
                     break;
-        
                 case "pop":
                     if (que.isEmpty()) {
-                        bw.write(-1 + "\n");
-                    } else {
-                        bw.write(que.poll() + "\n");
+                        sb.append(-1 + "\n");
+                        break;
                     }
+                    sb.append(que.pollFirst() + "\n");
                     break;
-      
+                default:
+                    break;
             }
         }
-
-        bw.flush();
-        bw.close();
-    }
+        System.out.println(sb);
+   }
 }
