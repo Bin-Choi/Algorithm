@@ -2,6 +2,7 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
+    static char pr;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String line = br.readLine();
@@ -16,11 +17,13 @@ public class Main {
                 case '(':
                     tem *= 2;
                     stk.offerFirst(c);
+                    pr = c;
                     break;
                 
                 case '[':
                     tem *= 3;
                     stk.offerFirst(c);
+                    pr = c;
                     break;
 
                 case ')':
@@ -28,11 +31,12 @@ public class Main {
                         answer = 0;
                         break L1;
                     } else {
-                        if (line.charAt(i-1) == '('){
+                        if (pr == '('){
                             answer += tem;
                         }
                         stk.pollFirst();
                         tem /= 2;
+                        pr = c;
                     } break;
                 
                 case ']':
@@ -40,11 +44,12 @@ public class Main {
                         answer = 0;
                         break L1;
                     } else {
-                        if (line.charAt(i-1) == '['){
+                        if (pr == '['){
                             answer += tem;
                         }
                         stk.pollFirst();
                         tem /= 3;
+                        pr = c;
                     } break;
             }
         }
