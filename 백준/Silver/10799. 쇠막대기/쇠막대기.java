@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-    static char pr;
+    static boolean islazer;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String line = br.readLine();
@@ -13,21 +13,19 @@ public class Main {
         for (char c : line.toCharArray()) {
             if(stk.isEmpty() || c == '(') {
                 stk.offerFirst(c);
-                pr = c;
+                islazer = true;
                 continue;
             }
 
-            if(c == ')') {
-                if (pr == '(') {
-                    // 레이저라면
-                    stk.pollFirst();
-                    answer += stk.size();
-                    pr = c;
-                } else {
-                    stk.pollFirst();
-                    answer++;
-                    pr = c;
-                }
+            if (islazer) {
+                // 레이저라면
+                stk.pollFirst();
+                answer += stk.size();
+                islazer = false;
+            } else {
+                stk.pollFirst();
+                answer++;
+                islazer = false;
             }
         }
         System.out.println(answer);
