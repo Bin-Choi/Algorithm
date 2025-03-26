@@ -11,8 +11,7 @@ public class Main {
         int answer = 0;
         int tem = 1;
 
-        L1: for (int i = 0; i < line.length(); i++) {
-            char c = line.charAt(i);
+        L1: for (char c : line.toCharArray()) {
             switch (c) {
                 case '(':
                     tem *= 2;
