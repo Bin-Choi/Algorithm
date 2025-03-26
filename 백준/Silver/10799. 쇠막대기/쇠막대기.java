@@ -17,16 +17,14 @@ public class Main {
                 continue;
             }
 
+            // 문제에서 닫힘을 보장하므로.
+            stk.pollFirst();
             if (islazer) {
-                // 레이저라면
-                stk.pollFirst();
                 answer += stk.size();
-                islazer = false;
             } else {
-                stk.pollFirst();
                 answer++;
-                islazer = false;
             }
+            islazer = false;
         }
         System.out.println(answer);
     }
