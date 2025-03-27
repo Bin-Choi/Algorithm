@@ -2,59 +2,70 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-    static int[] dx = {-1, 0, 1, 0};
-    static int[] dy = {0, -1, 0, 1};
-    static int[][] map;
-    static boolean[][] visit;
-   
+    static int N;
+    static int M;
+    static int[][] arr;
+    static boolean[][] visited;
+
+    static int[] dx = new int[] {-1, 0, 1, 0};
+    static int[] dy = new int[] {0, -1, 0, 1};
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int N = Integer.parseInt(st.nextToken());
-        int M = Integer.parseInt(st.nextToken());
-        Deque<int[]> que = new LinkedList<>();
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
 
-        map = new int[N][M];
-        visit = new boolean[N][M];
+        arr = new int[N][M];
+        visited = new boolean[N][M];
 
-        for (int i = 0; i< N; i++) {
-            String s = br.readLine();
+        // arr 세팅, 출발점 미리찾기
+        for (int i = 0; i < N; i++) {
+            String line = br.readLine();
             for (int j = 0; j < M; j++) {
-                map[i][j] = s.charAt(j) - '0';
+                arr[i][j] = line.charAt(j)-'0';
             }
         }
 
-        visit[0][0] = true;
-        que.offer(new int[] {0, 0});
+        bfs(0, 0);
+
+        System.out.println(arr[N-1][M-1]);
+    }
+
+    
+    static void bfs(int si, int sj) {
         
-        while (!que.isEmpty()) {
-            int[] temp = que.poll();
+        visited[si][sj] = true;
+        Deque<int[]> que = new LinkedList<>();
+        que.offerLast(new int[] {si, sj});
 
-            int x = temp[0];
-            int y = temp[1];
+        while(!que.isEmpty()) {
+            int[] point  = que.pollFirst();
+            int x = point[0];
+            int y = point[1];
 
-            for (int i = 0; i<4; i++) {
+            for (int i = 0; i < 4; i++) {
                 int nx = x + dx[i];
                 int ny = y + dy[i];
 
-                if(nx < 0 || nx >= N || ny < 0 || ny >= M) {
+                // 범위 밖
+                if(0 > nx || nx >= N || 0 > ny || ny >= M) {
+                    continue;
+                }
+                // 방문한 적이 있다면
+                if(visited[nx][ny]) {
+                    continue;
+                }
+                // 갈 수 없는 곳이라면
+                if(arr[nx][ny] == 0) {
                     continue;
                 }
 
-                if(map[nx][ny] == 0 || visit[nx][ny]) {
-                    continue;
-                }
-
-                visit[nx][ny] = true;
-                que.offer(new int[] {nx, ny});
-
-                map[nx][ny] = map[x][y]+1;
+                // 범위 안이고, 방문한 적 없고, 가야하는 곳
+                visited[nx][ny] = true;
+                arr[nx][ny] = arr[x][y]+1;
+                que.offerLast(new int[] {nx, ny});
             }
         }
-
-        System.out.println(map[N-1][M-1]);
     }
 }
